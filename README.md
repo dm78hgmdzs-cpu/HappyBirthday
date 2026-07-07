@@ -1,4 +1,3 @@
-# HappyBirthday
 <!DOCTYPE html>
 <html lang="th">
 <head>
@@ -137,6 +136,7 @@
 </body>
 
 </html>
+
 *{
 margin:0;
 padding:0;
@@ -655,6 +655,7 @@ font-size:18px;
 }
 
 }
+
 // =========================
 // Loading Screen
 // =========================
@@ -782,6 +783,7 @@ function typeWriter(){
     }
 
 }
+
 // =========================
 // หัวใจลอย
 // =========================
@@ -920,141 +922,208 @@ function launchConfetti(){
     });
 
 }
+
 // =========================
-// หัวใจลอย
+// Popup เมื่อกดปุ่ม
 // =========================
 
-function createHeart(){
+loveBtn.onclick = () => {
 
-    const heart = document.createElement("div");
+    popup.style.display = "flex";
 
-    heart.className = "heart";
+    launchConfetti();
 
-    heart.innerHTML = "❤";
+    for(let i=0;i<5;i++){
 
-    heart.style.left = Math.random()*100+"vw";
+        setTimeout(()=>{
+            launchConfetti();
+        },i*400);
 
-    heart.style.fontSize = (15+Math.random()*35)+"px";
-
-    heart.style.animationDuration = (5+Math.random()*5)+"s";
-
-    document.getElementById("hearts").appendChild(heart);
-
-    setTimeout(()=>{
-
-        heart.remove();
-
-    },10000);
+    }
 
 }
 
-setInterval(createHeart,300);
-
 
 // =========================
-// กลีบกุหลาบ
+// ปิด Popup
 // =========================
 
-function createPetal(){
+closePopup.onclick = ()=>{
 
-    const petal = document.createElement("div");
-
-    petal.innerHTML = "🌸";
-
-    petal.style.position="fixed";
-
-    petal.style.left=Math.random()*100+"vw";
-
-    petal.style.top="-50px";
-
-    petal.style.fontSize=(20+Math.random()*20)+"px";
-
-    petal.style.opacity=Math.random();
-
-    petal.style.transition="transform 8s linear";
-
-    petal.style.zIndex="1";
-
-    document.body.appendChild(petal);
-
-    setTimeout(()=>{
-
-        petal.style.transform="translateY(120vh) rotate(720deg)";
-
-    },50);
-
-    setTimeout(()=>{
-
-        petal.remove();
-
-    },9000);
+    popup.style.display="none";
 
 }
 
-setInterval(createPetal,700);
-
 
 // =========================
-// ดาววิบวับ
+// ซูมรูป
 // =========================
 
-function sparkle(){
+const photo=document.querySelector(".photo");
 
-    const star=document.createElement("div");
+photo.onclick=()=>{
 
-    star.innerHTML="✨";
+    if(photo.classList.contains("zoom")){
 
-    star.style.position="fixed";
+        photo.classList.remove("zoom");
 
-    star.style.left=Math.random()*100+"vw";
+    }else{
 
-    star.style.top=Math.random()*100+"vh";
+        photo.classList.add("zoom");
 
-    star.style.fontSize=(10+Math.random()*20)+"px";
-
-    star.style.opacity=0;
-
-    star.style.transition=".6s";
-
-    document.body.appendChild(star);
-
-    setTimeout(()=>{
-
-        star.style.opacity=1;
-
-    },100);
-
-    setTimeout(()=>{
-
-        star.style.opacity=0;
-
-    },1200);
-
-    setTimeout(()=>{
-
-        star.remove();
-
-    },1800);
+    }
 
 }
 
-setInterval(sparkle,600);
-
 
 // =========================
-// พลุหัวใจ
+// เพิ่ม CSS สำหรับซูม
 // =========================
 
-function launchConfetti(){
+const style=document.createElement("style");
 
-    confetti({
+style.innerHTML=`
 
-        particleCount:180,
+.zoom{
 
-        spread:120,
+position:fixed!important;
 
-        origin:{y:0.6}
+top:50%;
 
-    });
+left:50%;
+
+transform:translate(-50%,-50%) scale(1.8);
+
+max-width:90vw;
+
+max-height:90vh;
+
+z-index:99999;
+
+cursor:zoom-out;
+
+border-radius:20px;
+
+box-shadow:0 20px 60px rgba(0,0,0,.45);
+
+transition:.4s;
 
 }
+
+`;
+
+document.head.appendChild(style);
+
+
+// =========================
+// Easter Egg
+// =========================
+
+let tapCount=0;
+
+document.body.addEventListener("click",()=>{
+
+    tapCount++;
+
+    if(tapCount===5){
+
+        tapCount=0;
+
+        launchConfetti();
+
+        alert("💖 เค้ารักอ้วนที่สุดในโลกเลยนะ 💖");
+
+    }
+
+});
+
+
+// =========================
+// ปุ่มเปิดเพลง
+// =========================
+
+const musicBtn=document.createElement("button");
+
+musicBtn.innerHTML="🎵 เปิดเพลง Perfect";
+
+musicBtn.style.position="fixed";
+
+musicBtn.style.bottom="20px";
+
+musicBtn.style.right="20px";
+
+musicBtn.style.padding="15px 25px";
+
+musicBtn.style.borderRadius="50px";
+
+musicBtn.style.border="none";
+
+musicBtn.style.background="#ff4b91";
+
+musicBtn.style.color="white";
+
+musicBtn.style.cursor="pointer";
+
+musicBtn.style.fontSize="18px";
+
+musicBtn.style.boxShadow="0 10px 25px rgba(255,0,120,.3)";
+
+document.body.appendChild(musicBtn);
+
+musicBtn.onclick=()=>{
+
+    window.open(
+      "https://www.youtube.com/results?search_query=Perfect+Ed+Sheeran",
+      "_blank"
+    );
+
+}
+
+
+// =========================
+// ข้อความตอนท้าย
+// =========================
+
+setTimeout(()=>{
+
+    const ending=document.createElement("div");
+
+    ending.innerHTML=`
+
+<h1 style="font-family:'Great Vibes';font-size:60px;color:#ff3f82;">
+I Love You ❤️
+</h1>
+
+<h2 style="margin-top:10px;">
+Happy Birthday My Love 🎂
+</h2>
+
+`;
+
+    ending.style.position="fixed";
+
+    ending.style.inset="0";
+
+    ending.style.background="rgba(255,255,255,.92)";
+
+    ending.style.display="none";
+
+    ending.style.justifyContent="center";
+
+    ending.style.alignItems="center";
+
+    ending.style.flexDirection="column";
+
+    ending.style.zIndex="999999";
+
+    document.body.appendChild(ending);
+
+    setTimeout(()=>{
+
+        ending.style.display="flex";
+
+        launchConfetti();
+
+    },35000);
+
+},1000);
